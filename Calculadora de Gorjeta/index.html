@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Gorjetas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            width: 400px;
+            height: 500px;
+            margin: 200px auto;
+            text-align: center;
+            background-color: #676867;
+            padding-top: 40px;
+            border-radius: 4%;
+        }
+        div{
+            background-color: #2a2a2a;
+            border-radius: 2%;
+            
+            border-right: #4CAF50;
+        }
+        p{
+            background-color: #4CAF50;
+        }
+        h2{
+            color: #fcfcfc;
+        }
+        label{
+            color: #fdfdfd;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            margin: 10px;
+            width: 150px;
+        }
+
+        select {
+            padding: 8px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 15%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h2>Calculadora de Gorjetas</h2>
+        <label for="totalConta">Total da Conta: </label>
+        <input type="number" id="totalConta" placeholder="Insira o valor da conta"><br>
+
+        <label for="qualidadeServico">Qualidade do Serviço: </label>
+        <select id="qualidadeServico">
+            <option value="bom">Bom</option>
+            <option value="regular">Regular</option>
+            <option value="ruim">Ruim</option>
+        </select><br>
+
+        <button id="calcularGorjeta">Calcular Gorjeta</button><br>
+
+        <div id="resultado"></div>
+
+        <script src="scripts.js"></script>
+    </div>
+</body>
+
+</html>
