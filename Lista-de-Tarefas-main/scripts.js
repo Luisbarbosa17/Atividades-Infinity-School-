@@ -1,70 +1,45 @@
-const container = document.querySelector(".container");
-const input = document.querySelector(".input");
-const addButton = document.querySelector(".add");
+document.getElementById('addTaskBtn').addEventListener('click', addTask);
+document.getElementById('taskName').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        addTask();
+    }
+});
 
-function addTarefa(nomeDaTarefa) {
-  const itemTarefa = document.createElement("div");
-  itemTarefa.classList.add("item");
+function addTask() {
+    const taskName = document.getElementById('taskName').value.trim();
+    const taskTime = document.getElementById('taskTime').value;
+    const taskPriority = document.getElementById('taskPriority').value;
 
-  const inputTarefa = document.createElement("input");
-  inputTarefa.type = "text";
-  inputTarefa.disabled = true;
-  inputTarefa.value = nomeDaTarefa;
-  inputTarefa.classList.add("item-input");
-
-  const btnEditar = document.createElement("button");
-  btnEditar.classList.add("editar");
-  btnEditar.innerText = "EDITAR";
-  btnEditar.addEventListener("click", () =>
-    editarTarefa(inputTarefa, nomeDaTarefa)
-  );
-
-  const btnRemover = document.createElement("button");
-  btnRemover.classList.add("remover");
-  btnRemover.innerText = "REMOVER";
-  btnRemover.addEventListener("click", () =>
-    deletarTarefa(itemTarefa, nomeDaTarefa)
-  );
-
-  container.appendChild(itemTarefa);
-  itemTarefa.appendChild(inputTarefa);
-  itemTarefa.appendChild(btnEditar);
-  itemTarefa.appendChild(btnRemover);
-}
-function savetasks(){
-  window.localStorage.setItem("tasks", JSON.stringify(tasks))
-}
-function editarTarefa(input, nomeDaTarefa) {
-input.disabled = !input.disabled
-if (!input.disabled) {
-  const [index] = tasks.indexOf(nomeDaTarefa)
-  tasks[index] = input.value
-  savetasks()
-}
-}
-
-function deletarTarefa(itemTarefa, nomeDaTarefa) {
- container.removeChild(itemTarefa)
- const index = tasks.indexOf(nomeDaTarefa)
- tasks.splice(index, 1)
- savetasks()
-}
-function checkinput() {
-  const valorinput = input.value;
-  if (valorinput !== "") {
-    addTarefa(valorinput)
-    tasks.push(valorinput)
-    savetasks()
-    input.value=''
-  }
-}
-addButton.addEventListener('click', checkinput)
-window.addEventListener('keypress',(e) => {
-  if( e.key ==='Enter'){
-    checkinput()
-  }
-})
-const tasks = JSON.parse(window.localStorage.getItem("tasks")) ||[]
-for (const task of tasks){
-  addTarefa(task)
+    if (taskName && taskTime && taskPriority) {
+        const taskList = document.getElementById('taskList');
+        
+        // Criação do item da tarefa
+        const taskItem = document.createElement('li');
+        taskItem.classList.add('task-item');
+        
+        // Informações da tarefa
+        const taskInfo = document.createElement('div');
+        taskInfo.classList.add('task-info');
+        taskInfo.innerHTML = `
+            <span><strong>Tarefa:</strong> ${taskName}</span>
+            <span><strong>Hora:</strong> ${taskTime}</span>
+            <span><strong>Prioridade:</strong> ${taskPriority}</span>
+        `;
+        
+        // Botão de remover
+        const removeBtn = document.createElement('button');
+        removeBtn.innerHTML = '<i class="fas fa-trash"></i>';
+        removeBtn.addEventListener('click', function() {
+            taskItem.remove();
+        });
+        
+        taskItem.appendChild(taskInfo);
+        taskItem.appendChild(removeBtn);
+        taskList.appendChild(taskItem);
+        
+        // Limpar os campos de entrada
+        document.getElementById('taskName').value = '';
+        document.getElementById('taskTime').value = '';
+        document.getElementById('taskPriority').value = '1';
+    }
 }
